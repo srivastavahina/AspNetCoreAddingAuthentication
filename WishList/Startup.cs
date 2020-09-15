@@ -17,7 +17,7 @@ namespace WishList
             services.AddMvc();
             services.AddDbContext<ApplicationDbContext>(options => options.UseInMemoryDatabase("Wishlist"));
 
-            AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders()
+            services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders()
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -31,7 +31,7 @@ namespace WishList
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            UseAuthentication();
+            app.UseAuthentication();// UseAuthentication();
             app.UseMvcWithDefaultRoute();
         }
     }
