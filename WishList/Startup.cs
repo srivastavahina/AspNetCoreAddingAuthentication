@@ -31,7 +31,7 @@ namespace WishList
             {
                 app.UseExceptionHandler("/Home/Error");
             }
-            app.UseAuthentication();// UseAuthentication();
+            app.UseAuthentication();
             app.UseMvcWithDefaultRoute();
         }
     }
