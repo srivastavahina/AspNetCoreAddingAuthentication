@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using WishList.Models;
 using WishList.Models.AccountViewModels;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace WishList.Controllers
 {   [Authorize]
@@ -50,17 +51,23 @@ namespace WishList.Controllers
         [AllowAnonymous]
         public IActionResult Login()
         {
-            return RedirectToAction("Login","Account");
+            return View();
 
         }
 
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(LoginViewModel login)
+        public IActionResult Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(login);
+                return View(model);
+            var result = _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false).Result;
+            if (!result.Succeeded)
+            {
+                ModelState.AddModelError(string.Empty,"Invalid Login attempt.");
+                return View(model);
+            }
             return RedirectToAction("Index", "Item");
 
         }
@@ -70,7 +77,7 @@ namespace WishList.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Logout()
         {
-           
+            _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
 
         }
