@@ -37,7 +37,7 @@ namespace WishList.Controllers
             { 
             foreach (var err in result.Errors)
             {
-                ModelState.AddModelError("Password", err.Description)
+                    ModelState.AddModelError("Password", err.Description);
                 }
 
                 return View(model);
