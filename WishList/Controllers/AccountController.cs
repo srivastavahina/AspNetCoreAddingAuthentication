@@ -45,5 +45,34 @@ namespace WishList.Controllers
         }
             return RedirectToAction("Index", "Home");
         }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return RedirectToAction("Login","Account");
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(LoginViewModel login)
+        {
+            if (!ModelState.IsValid)
+                return View(login);
+            return RedirectToAction("Index", "Item");
+
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public IActionResult Logout()
+        {
+           
+            return RedirectToAction("Index", "Home");
+
+        }
     }
 }
