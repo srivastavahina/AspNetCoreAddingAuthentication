@@ -26,7 +26,7 @@ namespace WishList.Controllers
         {
             return View();
         }
-
+        [HttpPost]
         public IActionResult Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
